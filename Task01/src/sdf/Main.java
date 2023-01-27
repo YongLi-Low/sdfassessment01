@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,13 +34,13 @@ public class Main {
             if (words[0].equals("") || words[0].equals("\n")) {
                 continue;
             }
-            else {
+            else if (!words[0].equals("\n")) {
                 wordCount += words.length;
             }
             for (String s : words) {
                 s = s.toLowerCase();
                 Double count = eachWordCount.get(s);
-                System.out.println(s);
+                // System.out.print(s + " ");
                 if (count == null) {
                     eachWordCount.put(s, 1.0);
                 }
@@ -46,8 +48,9 @@ public class Main {
                     eachWordCount.put(s, count + 1);
                 }
             }
+            // System.out.println();
         }
-        System.out.println(wordCount);
+        // System.out.println(wordCount);
         // System.out.println(eachWordCount);
 
         Map<String, Double> result = new HashMap<>();
@@ -84,9 +87,10 @@ public class Main {
 
         String[] resultString = new String[10];
 
+        NumberFormat formatter = new DecimalFormat("#0.000");  // format value to 3 DP
         int i = 0;
         for (Entry<String, Double> entry : result.entrySet()) {
-            resultString[i] = "Word: " + entry.getKey() + " -> Term Frequency: " + entry.getValue();
+            resultString[i] = "Word: " + entry.getKey() + " -> Term Frequency: " + formatter.format(entry.getValue());
             i++;
         }
 
