@@ -27,14 +27,18 @@ public class Main {
         Map<String, Double> eachWordCount = new HashMap<>();
 
         while ((str = br.readLine()) != null) {
-            words = str.replaceAll("\\W", " ").replaceAll("  ", " ").split(" ");
+            words = str.replaceAll("\\W", " ").replaceAll("\\s{2,}", " ").
+            trim().split(" ");
             if (words[0].equals("") || words[0].equals("\n")) {
                 continue;
             }
-            wordCount += words.length;
+            else {
+                wordCount += words.length;
+            }
             for (String s : words) {
                 s = s.toLowerCase();
                 Double count = eachWordCount.get(s);
+                System.out.println(s);
                 if (count == null) {
                     eachWordCount.put(s, 1.0);
                 }
@@ -43,6 +47,7 @@ public class Main {
                 }
             }
         }
+        System.out.println(wordCount);
         // System.out.println(eachWordCount);
 
         Map<String, Double> result = new HashMap<>();
@@ -81,7 +86,7 @@ public class Main {
 
         int i = 0;
         for (Entry<String, Double> entry : result.entrySet()) {
-            resultString[i] = "Term frequency of " + "'" + entry.getKey() + "'" + " is " + entry.getValue();
+            resultString[i] = "Word: " + entry.getKey() + " -> Term Frequency: " + entry.getValue();
             i++;
         }
 
